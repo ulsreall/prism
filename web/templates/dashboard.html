@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>PRISM Dashboard</h1>
+    <span class="badge badge-green">All Systems Operational</span>
+</div>
+<div class="stats-grid">
+    <div class="stat-card"><div class="stat-label">Active Agents</div><div class="stat-value">10/10</div></div>
+    <div class="stat-card"><div class="stat-label">Total Analyses</div><div class="stat-value">{{ "{:,}".format(total_analyses) }}</div></div>
+    <div class="stat-card"><div class="stat-label">Tokens Consumed</div><div class="stat-value">{{ "{:.1f}M".format(total_tokens / 1000000) }}</div></div>
+    <div class="stat-card"><div class="stat-label">Avg Quality Score</div><div class="stat-value">81/100</div></div>
+</div>
+<div class="grid-2">
+    <div class="card">
+        <h2>🤖 Agent Status</h2>
+        {% for agent in agents %}
+        <div class="agent-row">
+            <span class="status-dot green"></span>
+            <span class="agent-name">{{ agent.name }}</span>
+            <span class="agent-metric">{{ "{:,}".format(agent.tokens) }} tok/scan</span>
+            <span class="badge badge-green">{{ agent.success }}%</span>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="card">
+        <h2>📋 Recent Analyses</h2>
+        <table class="data-table">
+            <thead><tr><th>File</th><th>Score</th><th>Findings</th><th>Time</th></tr></thead>
+            <tbody>
+            {% for a in analyses %}
+            <tr>
+                <td>{{ a.file }}</td>
+                <td><span class="score-badge {{ 'green' if a.score >= 80 else 'yellow' if a.score >= 70 else 'red' }}">{{ a.score }}</span></td>
+                <td>{{ a.findings }}</td>
+                <td class="text-muted">{{ a.time }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

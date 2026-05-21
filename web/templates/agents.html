@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Agents{% endblock %}
+{% block content %}
+<div class="page-header"><h1>🤖 Agents</h1></div>
+<div class="agents-grid">
+    {% for agent in agents %}
+    <div class="card agent-card">
+        <div class="agent-card-header">
+            <span class="status-dot green pulse"></span>
+            <h3>{{ agent.name }}</h3>
+        </div>
+        <p class="text-muted">{{ agent.desc }}</p>
+        <div class="agent-stats">
+            <div><span class="stat-label">Tokens/Scan</span><span class="stat-value">{{ "{:,}".format(agent.tokens) }}</span></div>
+            <div><span class="stat-label">Total Runs</span><span class="stat-value">{{ "{:,}".format(agent.runs) }}</span></div>
+            <div><span class="stat-label">Success Rate</span><span class="stat-value">{{ agent.success }}%</span></div>
+            <div><span class="stat-label">Avg Time</span><span class="stat-value">{{ agent.avg_time }}s</span></div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

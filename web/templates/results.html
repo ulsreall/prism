@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Results{% endblock %}
+{% block content %}
+<div class="page-header"><h1>📊 Analysis Results</h1></div>
+<div class="stats-grid">
+    <div class="stat-card"><div class="stat-label">Quality Score</div><div class="stat-value {{ 'green' if result.score >= 80 else 'yellow' if result.score >= 70 else 'red' }}">{{ result.score }}/100</div></div>
+    <div class="stat-card"><div class="stat-label">Findings</div><div class="stat-value">{{ result.findings }}</div></div>
+    <div class="stat-card"><div class="stat-label">Tokens Used</div><div class="stat-value">{{ "{:,}".format(result.tokens) }}</div></div>
+    <div class="stat-card"><div class="stat-label">File</div><div class="stat-value text-sm">{{ result.file }}</div></div>
+</div>
+<div class="grid-2">
+    <div class="card">
+        <h2>🔍 Findings</h2>
+        {% for f in findings %}
+        <div class="finding-row {{ f.severity }}">
+            <span class="severity-badge {{ f.severity }}">{{ f.severity|upper }}</span>
+            <span>{{ f.title }}</span>
+            <span class="text-muted">L{{ f.line }} · {{ f.agent }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="card">
+        <h2>🤖 Agent Breakdown</h2>
+        {% for ar in result.agent_results %}
+        <div class="agent-row">
+            <span class="agent-name">{{ ar.name }}</span>
+            <span>{{ ar.findings }} findings</span>
+            <span class="text-muted">{{ "{:,}".format(ar.tokens) }} tokens</span>
+            <span class="score-badge {{ 'green' if ar.score >= 80 else 'yellow' if ar.score >= 70 else 'red' }}">{{ ar.score }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

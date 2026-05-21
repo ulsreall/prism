@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Analyze{% endblock %}
+{% block content %}
+<div class="page-header"><h1>🔍 Analyze Code</h1></div>
+<form method="POST" class="card">
+    <div class="form-group">
+        <label>Filename</label>
+        <input type="text" name="filename" value="untitled.py" class="input">
+    </div>
+    <div class="form-group">
+        <label>Code</label>
+        <textarea name="code" class="code-editor" rows="20" placeholder="Paste your code here..."></textarea>
+    </div>
+    <div class="form-group">
+        <label>Select Agents</label>
+        <div class="checkbox-grid">
+            {% for agent in agents %}
+            <label class="checkbox-label"><input type="checkbox" name="agents" value="{{ agent.name }}" checked> {{ agent.name }}</label>
+            {% endfor %}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">🚀 Run Analysis</button>
+</form>
+{% endblock %}

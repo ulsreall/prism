@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Statistics{% endblock %}
+{% block content %}
+<div class="page-header"><h1>📈 Token Statistics</h1></div>
+<div class="stats-grid">
+    <div class="stat-card"><div class="stat-label">Daily Average</div><div class="stat-value">68.2M</div></div>
+    <div class="stat-card"><div class="stat-label">Monthly Total</div><div class="stat-value">2.05B</div></div>
+    <div class="stat-card"><div class="stat-label">Cost/Day</div><div class="stat-value">$204.60</div></div>
+    <div class="stat-card"><div class="stat-label">Plan Required</div><div class="stat-value">1.6B/mo</div></div>
+</div>
+<div class="grid-2">
+    <div class="card"><h2>Daily Token Usage</h2><canvas id="dailyChart"></canvas></div>
+    <div class="card"><h2>Per-Agent Consumption</h2><canvas id="agentChart"></canvas></div>
+</div>
+<script>
+const dailyData = {{ daily_tokens | tojson }};
+const agentData = {{ agents | tojson }};
+new Chart(document.getElementById('dailyChart'), {
+    type: 'bar', data: {
+        labels: dailyData.map(d => d[0].slice(5)),
+        datasets: [{label: 'Tokens', data: dailyData.map(d => d[1]/1e6), backgroundColor: '#58a6ff'}]
+    }, options: {scales: {y: {title: {display: true, text: 'Millions'}}}}
+});
+new Chart(document.getElementById('agentChart'), {
+    type: 'doughnut', data: {
+        labels: agentData.map(a => a.name),
+        datasets: [{data: agentData.map(a => a.tokens * a.runs / 1e6), backgroundColor: ['#58a6ff','#3fb950','#f85149','#d29922','#bc8cff','#f778ba','#79c0ff','#56d364','#ffa657','#d2a8ff']}]
+    }
+});
+</script>
+{% endblock %}
