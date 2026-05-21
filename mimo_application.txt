@@ -1,4 +1,4 @@
-PRISM is a code quality metrics platform deploying 10 specialized AI agents for comprehensive codebase quality assessment. Daily consumption: 68M+ tokens.
+PRISM is a code quality metrics platform with 10 AI agents for comprehensive codebase quality assessment. Daily consumption: 68M+ tokens.
 
 Operations:
 - Complexity Analyzer: 16K/scan, 700/day = 11.2M
@@ -12,8 +12,8 @@ Operations:
 - Style Compliance: 12K/scan, 350/day = 4.2M
 - Naming Checker: 12K/scan, 300/day = 3.6M
 
-Architecture: 10 agents form an async pipeline. Each codebase flows through all quality dimensions consuming 155K+ tokens per full assessment. Real-time dashboard tracks per-dimension scores and trends.
+Each codebase flows through complexity analysis, duplication detection, code smell identification, and quality gating consuming 155K+ tokens per assessment. Dashboard tracks quality trends.
 
-We serve 180+ engineering teams processing 700+ codebases daily. Each assessment requires deep complexity analysis, duplication detection, coupling measurement, and style validation. 700 daily pipeline runs × 97K avg = 68M+ tokens/day.
+We serve 180+ teams processing 700+ codebases daily. Each assessment requires deep complexity analysis, duplication detection, coupling measurement, and style validation. 700 daily runs × 97K avg = 68M+ tokens/day.
 
-Previously used GPT-4 but costs prohibitive at scale. MiMo v2.5 Pro's analytical depth ideal for multi-dimensional quality assessment. Need 1.6B tokens/month plan for sustained operations.
+Previously used GPT-4 but costs prohibitive. MiMo v2.5 Pro ideal for quality assessment. Need 1.6B tokens/month plan.
